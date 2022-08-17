@@ -23,10 +23,10 @@ const NavBar = () => {
                 <Link href="/">
                     <a className="navbar-brand">Beauty Space</a>
                 </Link>
-                <button class="navbar-toggler" onClick={offcanvasOpen} type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler" onClick={offcanvasOpen} type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasNavbarLabel"></h5>
                         <button type="button" onClick={offcanvasClose} className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -36,13 +36,14 @@ const NavBar = () => {
                             <li className="nav-item">
                                 <Link href="/cart">
                                     <a className={"nav-link" + isActive('/cart')}>
-                                        <i className="fas fa-shopping-cart"></i> Cart
+                                        <i className="fas fa-shopping-cart" aria-hidden="true"></i> Cart
                                     </a>
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link href="/signin">
-                                    <a className={"nav-link" + isActive('/signin')}><i className="fas fa-user"></i> Sign in</a>
+                                    <a className={"nav-link" + isActive('/signin')}>
+                                        <i className="fas fa-user" aria-hidden="true"></i>  Sign in</a>
                                 </Link>
                             </li>
                             {/* <li className="nav-item dropdown">
