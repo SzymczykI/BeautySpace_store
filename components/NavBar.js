@@ -1,13 +1,45 @@
-import React from 'react'
+import { useContext } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-
+import { useRouter } from 'next/router';
+import { DataContext } from '../store/GlobalState'
+import Cookie from 'js-cookie'
 
 
 const NavBar = () => {
 
     const router = useRouter();
-    const isActive = (r) => r === router.pathname ? " active" : ""
+    const { state, dispatch } = useContext(DataContext);
+    const { auth } = state;
+    const isActive = (r) => r === router.pathname ? " active" : "";
+    const loggedRouter = () => {
+        return (
+            <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src={auth.user.avatar} alt={auth.user.avatar}
+                        style={{
+                            borderRadius: '50%',
+                            width: '35px',
+                            height: '35px',
+                            transform: 'translateY(-3px)',
+                            marginRight: '3px'
+                        }} />
+                    {auth.user.name}
+                </a>
+                <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="#">Profile</a></li>
+                    <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
+                </ul>
+            </li>
+        )
+    }
+
+    const handleLogout = () => {
+        Cookie.remove('refreshtoken', {path: 'api/auth/accessToken' });
+        localStorage.removeItem('firstLogin');
+        dispatch({ type: 'AUTH', payload: {}});
+        dispatch({ type: 'NOTIFY', payload: {success: 'Logged out!'}});
+        offcanvasClose()
+    }
 
     const offcanvasOpen = () => {
         document.getElementById("offcanvasNavbar").className = "offcanvas offcanvas-end show"
@@ -33,32 +65,23 @@ const NavBar = () => {
                     </div>
                     <div className="offcanvas-body">
                         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li className="nav-item">
+                            <li  onClick={offcanvasClose} className="nav-item">
                                 <Link href="/cart">
                                     <a className={"nav-link" + isActive('/cart')}>
                                         <i className="fas fa-shopping-cart" aria-hidden="true"></i> Cart
                                     </a>
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link href="/signin">
-                                    <a className={"nav-link" + isActive('/signin')}>
-                                        <i className="fas fa-user" aria-hidden="true"></i>  Sign in</a>
-                                </Link>
-                            </li>
-                            {/* <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr className="dropdown-divider" />
+                            {
+                                Object.keys(auth).length === 0 ?
+                                    <li onClick={offcanvasClose} className="nav-item">
+                                        <Link href="/signin">
+                                            <a className={"nav-link" + isActive('/signin')}>
+                                                <i className="fas fa-user" aria-hidden="true"></i>  Sign in</a>
+                                        </Link>
                                     </li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li> */}
+                                    : loggedRouter()
+                            }
                         </ul>
                     </div>
                 </div>
