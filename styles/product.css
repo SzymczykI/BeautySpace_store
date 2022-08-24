@@ -26,6 +26,6 @@
 
 /* --------- Detail Product ----------- */
 .detail_page .img-thumbnail.active{
-    border-color: orangered;
+    border-color: rgb(239, 197, 99);
     padding: 2px;
 }

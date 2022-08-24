@@ -6,9 +6,9 @@ const ProductItem = ({ product }) => {
         return (
             <>
                 <Link href={`product/${product._id}`}>
-                    <a style={{ backgroundColor: '#E2BB66', border: '#E2BB66' }} className="btn btn-info mr-1 m-1">View</a>
+                    <a style={{ backgroundColor: '#E2BB66', border: '#E2BB66',  flex: 1 }} className="btn  mr-1 m-1">View</a>
                 </Link>
-                <button style={{ backgroundColor: '#E2BB66', border: '#E2BB66' }} className="btn btn-success m1-1 flex-fill">
+                <button style={{ backgroundColor: '#E2BB66', border: '#E2BB66', flex: 1 }} className="btn m1-1 flex-fill">
                     Add to cart
                 </button>
             </>
