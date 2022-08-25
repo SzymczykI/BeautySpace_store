@@ -9,7 +9,8 @@ const NavBar = () => {
 
     const router = useRouter();
     const { state, dispatch } = useContext(DataContext);
-    const { auth } = state;
+    const { auth, cart } = state;
+    
     const isActive = (r) => r === router.pathname ? " active" : "";
     const loggedRouter = () => {
         return (
@@ -34,10 +35,10 @@ const NavBar = () => {
     }
 
     const handleLogout = () => {
-        Cookie.remove('refreshtoken', {path: 'api/auth/accessToken' });
+        Cookie.remove('refreshtoken', { path: 'api/auth/accessToken' });
         localStorage.removeItem('firstLogin');
-        dispatch({ type: 'AUTH', payload: {}});
-        dispatch({ type: 'NOTIFY', payload: {success: 'Logged out!'}});
+        dispatch({ type: 'AUTH', payload: {} });
+        dispatch({ type: 'NOTIFY', payload: { success: 'Logged out!' } });
         offcanvasClose()
     }
 
@@ -65,10 +66,21 @@ const NavBar = () => {
                     </div>
                     <div className="offcanvas-body">
                         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li  onClick={offcanvasClose} className="nav-item">
+                            <li onClick={offcanvasClose} className="nav-item">
                                 <Link href="/cart">
                                     <a className={"nav-link" + isActive('/cart')}>
-                                        <i className="fas fa-shopping-cart" aria-hidden="true"></i> Cart
+                                        <i className="fas fa-shopping-cart position-relative" aria-hidden="true">
+                                            { cart.length > 0 && <span className="position-absolute"
+                                            style={{ padding: '3px 6px',
+                                            background: 'rgba(226, 187, 102, 0.5)',
+                                            borderRadius: '50%',
+                                            top: '-10px',
+                                            right: '-10px',
+                                            color: 'white',
+                                            fontSize: '14px'
+                                            }}>
+                                                {cart.length}</span>}
+                                        </i> Cart
                                     </a>
                                 </Link>
                             </li>
