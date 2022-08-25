@@ -68,7 +68,7 @@ const Signin = () => {
                     <div id="emailHelp" className="form-text">Password must have at least 6 characters</div>
                 </div>
                 <button type="submit" className="btn btn-primary w-100" style={{ backgroundColor: '#E2BB66', border: '#E2BB66' }}>Log in</button>
-                <p className="my-2">You dont't have an account?
+                <p className="my-2">You don t have an account?
                     <Link href="/register"><a style={{ color: '#E2BB66' }}> Register now</a></Link></p>
             </form>
         </div>
