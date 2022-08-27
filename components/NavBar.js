@@ -10,7 +10,7 @@ const NavBar = () => {
     const router = useRouter();
     const { state, dispatch } = useContext(DataContext);
     const { auth, cart } = state;
-    
+
     const isActive = (r) => r === router.pathname ? " active" : "";
     const loggedRouter = () => {
         return (
@@ -70,17 +70,18 @@ const NavBar = () => {
                                 <Link href="/cart">
                                     <a className={"nav-link" + isActive('/cart')}>
                                         <i className="fas fa-shopping-cart position-relative" aria-hidden="true">
-                                            { cart.length > 0 && <span className="position-absolute"
-                                            style={{ padding: '3px 6px',
-                                            background: 'rgba(226, 187, 102, 0.5)',
-                                            borderRadius: '50%',
-                                            top: '-10px',
-                                            right: '-10px',
-                                            color: 'white',
-                                            fontSize: '14px'
-                                            }}>
+                                            {cart.length > 0 && <span className="position-absolute"
+                                                style={{
+                                                    padding: '3px 6px',
+                                                    background: 'rgba(226, 187, 102)',
+                                                    borderRadius: '50%',
+                                                    top: '-10px',
+                                                    right: '-10px',
+                                                    color: 'white',
+                                                    fontSize: '14px'
+                                                }}>
                                                 {cart.length}</span>}
-                                        </i> Cart
+                                        </i>
                                     </a>
                                 </Link>
                             </li>
@@ -89,7 +90,7 @@ const NavBar = () => {
                                     <li onClick={offcanvasClose} className="nav-item">
                                         <Link href="/signin">
                                             <a className={"nav-link" + isActive('/signin')}>
-                                                <i className="fas fa-user" aria-hidden="true"></i>  Sign in</a>
+                                                <i className="fas fa-user" aria-hidden="true"></i> </a>
                                         </Link>
                                     </li>
                                     : loggedRouter()
