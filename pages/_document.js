@@ -10,7 +10,7 @@ class MyDocument extends Document {
                     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" async />
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" async />
                     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" async />
-                    <script src="https://kit.fontawesome.com/a076d05399.js" ></script>
+                    <script src="https://kit.fontawesome.com/1c8022d6d0.js" crossOrigin="anonymous" async/>
                     <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.PAYPAL_CLIENT_ID}&currency=USD`} async />
                 </Head>
                 <body>
