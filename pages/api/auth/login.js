@@ -1,7 +1,7 @@
 import connectToDB from "../../../utils/connectDB";
 import Users from '../../../models/userModel'
 import bcrypt from 'bcrypt'
-import { createAccesToken, createRefreshToken } from '../../../utils/generateToken'
+import { createAccessToken, createRefreshToken } from '../../../utils/generateToken'
 
 connectToDB()
 

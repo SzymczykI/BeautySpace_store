@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 const PaypalBtn = ({ total, address, mobile, state, dispatch }) => {
 
     const refPaypalBtn = useRef();
-    const { cart, auth } = state;
+    // const { cart, auth } = state;
 
     useEffect(() => {
         paypal.Buttons({
