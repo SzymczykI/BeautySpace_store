@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt'
 
 connectToDB()
 
-export default async (req, res) => {
+const registerConnect = async (req, res) => {
     switch (req.method) {
         case "POST":
             await register(req, res)
@@ -32,3 +32,5 @@ const register = async (req, res) => {
         res.status(500).json({ err: err.message });
     }
 }
+
+export default registerConnect

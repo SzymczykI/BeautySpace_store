@@ -3,7 +3,7 @@ import Products from '../../../models/productModel'
 
 connectToDB();
 
-export default async (req, res) => {
+const takeData = async (req, res) => {
     switch (req.method) {
         case "GET":
             await getProduct(req, res)
@@ -24,3 +24,5 @@ const getProduct = async (req, res) => {
         return res.status(500).json({ err: err.message })
     }
 }
+
+export default takeData;

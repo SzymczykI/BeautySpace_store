@@ -5,7 +5,7 @@ import { createAccessToken, createRefreshToken } from '../../../utils/generateTo
 
 connectToDB()
 
-export default async (req, res) => {
+const loginConnect = async (req, res) => {
     switch (req.method) {
         case "POST":
             await login(req, res)
@@ -42,3 +42,5 @@ const login = async (req, res) => {
         res.status(500).json({ err: err.message });
     }
 }
+
+export default loginConnect;
