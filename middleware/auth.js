@@ -10,5 +10,7 @@ const auth = async (req, res) => {
 
     const user = await Users.findOne({ _id: decoded.id });
 
-    return user;
+    return {id: user._id};
 }
+
+export default auth;
