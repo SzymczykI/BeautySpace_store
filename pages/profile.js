@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState, useContext, useEffect } from 'react'
 import { DataContext } from '../store/GlobalState'
 import valid from '../utils/valid'
+import { patchData } from '../utils/fetchData'
 
 const Profile = () => {
 
@@ -28,11 +29,21 @@ const Profile = () => {
     }
 
     const handleUpdateProfile = e => {
-        e.preventDafault();
+        e.preventDafault;
         if (password) {
             const errMsg = valid(name, auth.user.email, password, cf_password);
-            if (errMsg) return dispatch({ type: 'NOTIFY', payload: { error: errMsg } })
+            if (errMsg) return dispatch({ type: 'NOTIFY', payload: { error: errMsg } });
+            updatePassword()
         }
+    }
+
+    const updatePassword = () => {
+        dispatch({ type: 'NOTIFY', payload: { loading: true } });
+        patchData('user/resetPassword', { password }, auth.token)
+            .then(res => {
+                if (res.err) return dispatch({ type: 'NOTIFY', payload: { error: res.msg } });
+                return dispatch({ type: 'NOTIFY', payload: { success: res.msg } });
+            })
     }
 
     if (!auth.user) return null;
