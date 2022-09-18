@@ -2,7 +2,8 @@ import Head from 'next/head'
 import { useState, useContext, useEffect } from 'react'
 import { DataContext } from '../store/GlobalState'
 import valid from '../utils/valid'
-import { patchData } from '../utils/fetchData'
+import { patchData } from '../utils/fetchData';
+import { imageUpload } from '../utils/imageUpload';
 
 const Profile = () => {
 
@@ -35,6 +36,29 @@ const Profile = () => {
             if (errMsg) return dispatch({ type: 'NOTIFY', payload: { error: errMsg } });
             updatePassword()
         }
+
+        if (name !== auth.user.name || avatar) updateInfo()
+    }
+
+    const updateInfo = async () => {
+        let media;
+        dispatch({ type: 'NOTIFY', payload: { loading: true } });
+
+        if (avatar) media = await imageUpload([avatar]);
+
+        patchData('user', {
+            name, avatar: avatar ? media[0].url : auth.user.avatar
+        }, auth.token).then(res => {
+            if (res.err) return dispatch({ type: 'NOTIFY', payload: { error: res.err } });
+
+            dispatch({
+                type: 'AUTH', payload: {
+                    token: auth.token,
+                    user: res.user
+                }
+            });
+            return dispatch({ type: 'NOTIFY', payload: { success: res.msg } });
+        })
     }
 
     const updatePassword = () => {
@@ -44,6 +68,15 @@ const Profile = () => {
                 if (res.err) return dispatch({ type: 'NOTIFY', payload: { error: res.msg } });
                 return dispatch({ type: 'NOTIFY', payload: { success: res.msg } });
             })
+    };
+
+    const changeAvatar = (e) => {
+        const file = e.target.files[0];
+        if (!file) return dispatch({ type: 'NOTIFY', payload: { error: 'File does not exist' } });
+        if (file.size > 1024 * 1024) return dispatch({ type: 'NOTIFY', payload: { error: 'The largest image size is 1mb' } });
+        if (file.type !== "image/jpeg" && file.type !== "image/png") return dispatch({ type: 'NOTIFY', payload: { error: 'Image format is incorrect' } });
+
+        setData({ ...data, avatar: file })
     }
 
     if (!auth.user) return null;
@@ -60,11 +93,13 @@ const Profile = () => {
                         {auth.user.role === 'user' ? 'User Profile' : 'Admin Profile'}
                     </h3>
                     <div className='avatar'>
-                        <img src={auth.user.avatar} alt={auth.user.avatar} />
+                        <img src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
+                            alt={avatar} />
                         <span>
                             <i className='fas fa-camera'></i>
                             <p>Change</p>
-                            <input type='file' name='file' id='file_up' />
+                            <input type='file' name='file' id='file_up'
+                                accept="image/*" onChange={changeAvatar} />
                         </span>
                     </div>
 
