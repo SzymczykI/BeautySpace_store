@@ -10,6 +10,9 @@ const connect = async () => {
         case "POST":
             await createOrder(req, res);
             break;
+        case "GET":
+            await getOrders(req, res);
+            break;
     }
 }
 
@@ -18,6 +21,14 @@ const sold = async (id, quantity, oldInStock, oldStock) => {
         inStock: oldInStock - quantity,
         sold: quantity + oldSold
     })
+}
+
+const getOrders = async (req, res) => {
+    try {
+const result = await auth()
+    } catch (err) {
+        return res.status(500).json({ err: err.message })
+    }
 }
 
 const createOrder = async (req, res) => {

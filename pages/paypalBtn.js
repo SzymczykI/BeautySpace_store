@@ -29,12 +29,12 @@ const PaypalBtn = ({ total, address, mobile, state, dispatch }) => {
                             dispatch({ type: 'NOTIFY', payload: [] });
                             return dispatch({ type: 'NOTIFY', payload: { success: res.msg } })
                         })
-                    // This function shows a transaction success message to your buyer.
+                    // This function shows a transaction success message to buyer.
                     alert('Transaction completed by ' + details.payer.name.given_name);
                 });
             }
         }).render(refPaypalBtn.current);
-        //This function displays payment buttons on your web page.
+        //This function displays payment button.
     }, [])
 
 
